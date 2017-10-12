@@ -12,15 +12,27 @@ What ist git?
 ---
 
 What is DVCS?
--------------
+==============
 
-* Centralized version control systems (CVCS) focuses on synchronizing, tracking, and backing up files.
-* Distributed version control systems (DVCS) focuses on sharing changes; every change has a guid or unique id.
-* Recording/downloading and applying a change are separate steps (in a centralized system, they happen together).
-* Distributed systems have no forced structure. You can create “centrally administered” locations or keep everyone as peers.
-* DVCS new terminology
-    * Pushes refer to sending a change to another repository (permissions may be required)
-    * Pulls refer to grabbing a change from a repository
+---
+
+Centralized version control systems (CVCS) focuses on synchronizing, tracking, and backing up files.
+
+Distributed version control systems (DVCS) focuses on sharing changes; every change has a guid or unique id.
+
+---
+
+
+Recording/downloading and applying a change are separate steps (in a centralized system, they happen together).
+
+---
+
+Distributed systems have no forced structure. You can create “centrally administered” locations or keep everyone as peers.
+
+DVCS new terminology
+
+* Pushes refer to sending a change to another repository (permissions may be required)
+* Pulls refer to grabbing a change from a repository
 
 --- 
 
@@ -68,7 +80,6 @@ getting help
 $ git help log
 $ git log --help
 
-
 ``` 
 
 ---
@@ -114,6 +125,11 @@ Ihr Branch ist auf dem selben Stand wie 'origin/master'.
 
 ---
 
+Working with Files 
+===================
+
+---
+
 add file(s) to git
 -----------------
 
@@ -137,6 +153,219 @@ zum Commit vorgemerkte Änderungen:
     neue Datei:     file3
 
 ```
+
+---
+
+commiting changes 
+------------------
+
+add commit message 
+
+```shell
+
+$ git commit -m "my commit message"
+[master (Basis-Commit) 3074e91] my commit message
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 file1
+ create mode 100644 file2
+ create mode 100644 file3
+
+```
+
+---
+
+Branching and Merging
+=====================
+
+--- 
+
+create branch
+---------------
+
+```shell
+
+$ git branch branch1
+$ git branch  
+  branch1
+* master
+$ git checkout branch1
+$ git branch
+* branch1
+  master
+
+```
+
+---
+
+create branch and checkout 
+---------------------------
+
+```shell
+
+$ git checkout -b branch2
+Zu neuem Branch 'branch2' gewechselt
+$ git branch
+  branch1
+* branch2
+  master
+```
+
+---
+
+merging branches 
+------------------
+
+```shell
+$ git checkout master # switch to master branch
+$ git merge branch1
+Aktualisiere 933c510..c4c9e2f
+Fast-forward
+ file1 | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 file1
+```
+
+
+---
+
+Exploring history 
+==================
+
+---
+
+commit ids
+------------
+
+```
+$ git log
+commit 933c51027acf9956c6e02950e92af72e277200b1
+Author: Florian Schimmer <florian.schimmer@conplement.de>
+...
+```
+---
+
+tags 
+------
+
+```
+$ git tag
+```
+
+---
+
+versions 
+---------------
+
+```
+HEAD - newest commit in actual branch
+HEAD^ - parent of head
+HEAD^^ - grandparent of head
+HEAD~4 - great-great grandparent of HEAD
+```
+
+---
+
+print commits
+-------------------
+
+```shell
+$ git log
+commit 933c51027acf9956c6e02950e92af72e277200b1
+Author: Florian Schimmer <florian.schimmer@conplement.de>
+Date:   Thu Sep 14 16:20:30 2017 +0200
+
+    initial commit
+```
+
+--- 
+
+
+Working with remotes
+===================
+
+---
+
+clone repository 
+-----------------
+
+```shell
+
+$ git clone https://path/to/git-repository.git
+$ ls
+git-repository
+
+```
+
+---
+
+add remote and push local repository 
+--------------------------------------
+
+```shell
+
+$ git remote add origin https://path/to/git-repository.git
+$ git push -u origin master 
+
+```
+---
+
+get information about remotes 
+--------------------------------
+
+```shell
+$ git remote 
+origin
+$ git config --get remote.origin.url
+|https://path/to/git-repository.git
+$ git remote show origin
+* Remote-Repository origin
+  URL zum Abholen: https://path/to/git-repository.git
+  URL zum Versenden: https://path/to/git-repository.git
+...
+```
+---
+
+actualize remote(s)
+------------------------------
+
+```
+$ git remote update
+Fordere an von origin
+Fordere an von remote2
+$ git fetch --all
+Fordere an von origin
+Fordere an von remote2
+$ git fetch 
+Fordere an von origin
+```
+---
+
+avoid using 'git pull'
+----------------------
+
+git pull will update and merge any remote changes of the current branch you're on.
+
+instead use
+
+```
+$ git fetch
+$ git diff
+$ git merge
+```
+
+---
+
+avoid rewriting history
+-------------------------
+
+i.e. push force will rewrite the history on remote branch. 
+Be sure, that no one is using the 'old' history after forcing rewrite. 
+
+---
+
+Working with Files (extended)
+=============================
+
 ---
 
 adding files interactive
@@ -180,24 +409,6 @@ $ git checkout -- file1
 
 ---
 
-commiting changes 
-------------------
-
-add commit message 
-
-```shell
-
-$ git commit -m "my commit message"
-[master (Basis-Commit) 3074e91] my commit message
- 3 files changed, 0 insertions(+), 0 deletions(-)
- create mode 100644 file1
- create mode 100644 file2
- create mode 100644 file3
-
-```
-
----
-
 add commit message in editor
 
  ```shell
@@ -208,6 +419,7 @@ nano
 $ git commit
 
 ```
+
 
 ---
 
@@ -272,41 +484,10 @@ tag2
 
 ---
 
-Branching and Merging
-=====================
+Branching and Merging (extended)
+==================================
 
---- 
 
-create branch
----------------
-
-```shell
-
-$ git branch branch1
-$ git branch  
-  branch1
-* master
-$ git checkout branch1
-$ git branch
-* branch1
-  master
-
-```
-
----
-
-create branch and checkout 
----------------------------
-
-```shell
-
-$ git checkout -b branch2
-Zu neuem Branch 'branch2' gewechselt
-$ git branch
-  branch1
-* branch2
-  master
-```
 ---
 
 delete local branch 
@@ -320,6 +501,7 @@ $ git branch
   master
 
 ```
+
 ---
 
 rename branch
@@ -333,20 +515,6 @@ $ git branch
   master
 ```
 
----
-
-merging branches 
-------------------
-
-```shell
-$ git checkout master # switch to master branch
-$ git merge branch1
-Aktualisiere 933c510..c4c9e2f
-Fast-forward
- file1 | 0
- 1 file changed, 0 insertions(+), 0 deletions(-)
- create mode 100644 file1
-```
 ---
 
 set merge tool
@@ -371,54 +539,9 @@ merge vs rebase?
 
 ---
 
-Exploring history 
-==================
+Exploring history (extended)
+=============================
 
----
-
-commit ids
-------------
-
-```
-$ git log
-commit 933c51027acf9956c6e02950e92af72e277200b1
-Author: Florian Schimmer <florian.schimmer@conplement.de>
-...
-```
----
-
-tags 
-------
-
-```
-$ git tag
-```
-
----
-
-versions 
----------------
-
-```
-HEAD - newest commit in actual branch
-HEAD^ - parent of head
-HEAD^^ - grandparent of head
-HEAD~4 - great-great grandparent of HEAD
-```
-
----
-
-print commits
--------------------
-
-```shell
-$ git log
-commit 933c51027acf9956c6e02950e92af72e277200b1
-Author: Florian Schimmer <florian.schimmer@conplement.de>
-Date:   Thu Sep 14 16:20:30 2017 +0200
-
-    initial commit
-```
 ---
 
 print more informations about a commit 
@@ -527,21 +650,9 @@ Finished one cherry-pick.
 
 ---
 
-Working with remotes
-===================
 
----
-
-clone repository 
------------------
-
-```shell
-
-$ git clone https://path/to/git-repository.git
-$ ls
-git-repository
-
-```
+Working with remotes (extended)
+================================
 
 ---
 
@@ -560,74 +671,8 @@ git config [--global] credential.helper "<helper> [<options>]"
 
 ---
 
-add remote and push local repository 
---------------------------------------
-
-```shell
-
-$ git remote add origin https://path/to/git-repository.git
-$ git push -u origin master 
-
-```
----
-
-get information about remotes 
---------------------------------
-
-```shell
-$ git remote 
-origin
-$ git config --get remote.origin.url
-|https://path/to/git-repository.git
-$ git remote show origin
-* Remote-Repository origin
-  URL zum Abholen: https://path/to/git-repository.git
-  URL zum Versenden: https://path/to/git-repository.git
-...
-```
----
-
-actualize remote(s)
-------------------------------
-
-```
-$ git remote update
-Fordere an von origin
-Fordere an von remote2
-$ git fetch --all
-Fordere an von origin
-Fordere an von remote2
-$ git fetch 
-Fordere an von origin
-```
----
-
-avoid using 'git pull'
-----------------------
-
-git pull will update and merge any remote changes of the current branch you're on.
-
-instead use
-
-```
-$ git fetch
-$ git diff
-$ git merge
-```
-
----
-
-avoid rewriting history
--------------------------
-
-i.e. push force will rewrite the history on remote branch. 
-Be sure, that no one is using the 'old' history after forcing rewrite. 
-
----
-
-
-git flow vs github flow
-=========================
+git flow vs github flow (extended)
+===================================
 
 ---
 
@@ -650,5 +695,6 @@ The main concepts behind the Github flow are:
 
 ---
 
-Thank you for your attention :) 
+
+Thank you for your attention 
 ===============================
