@@ -1,6 +1,6 @@
 
-Commands
-==========
+git Commands
+==============
 
 getting help
 -------------
@@ -80,15 +80,17 @@ remove files
 git rm <file(s)>
 ```
 
+remove files from staging
+
+```
+git rm --cached <file(s)>
+```
+
 revert files 
 
 ```
 git checkout -- <file(s)>
 ```
-
-branching / merging 
----------------------
-
 
 stash
 ------
@@ -237,6 +239,12 @@ git push --delete <remote> tag
 exploring history 
 -----------------
 
+staging status
+
+```
+git status [<options>]
+``` 
+
 list logs
 
 ```
@@ -254,3 +262,37 @@ log summary
 ```
 git log --stat --summary
 ```
+
+diff files 
+
+```
+git diff [<options>] [<commit>] [<path>...]
+```
+
+special 
+--------
+
+rewrite last commit message
+
+```
+git commit --amend
+```
+
+rewrite bulk of commit messages
+
+```
+git rebase -i <version>
+```
+
+grep content in files
+
+```
+git grep <options> ...
+```
+
+pick commit from different branche
+
+```
+git cherry-pick <commit-id>
+```
+
